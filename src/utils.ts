@@ -1,6 +1,6 @@
 import { keccak256, toHex } from 'viem'
 import { contract, config } from './setup'
-import { createAtomFromString, createTriple } from '@0xintuition/sdk'
+import { createAtomFromString, createTripleStatement } from '@0xintuition/sdk'
 
 export async function getOrCreateAtom(data: string) {
   const termId = await contract.read.atomsByHash([keccak256(toHex(data))])
@@ -18,6 +18,8 @@ export async function getOrCreateTriple(
   objectId: bigint
 ) {
 
+  const generalConfig = await contract.read.generalConfig()
+
   const tripleHash = await contract.read.tripleHashFromAtoms(
     [subjectId, predicateId, objectId]
   )
@@ -26,8 +28,9 @@ export async function getOrCreateTriple(
   if (tripleId) {
     return tripleId
   } else {
-    const result = await createTriple(config, {
-      args: [subjectId, predicateId, objectId]
+    const result = await createTripleStatement(config, {
+      args: [subjectId, predicateId, objectId],
+      depositAmount: generalConfig[3]
     })
     return result
   }
