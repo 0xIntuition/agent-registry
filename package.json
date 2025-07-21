@@ -1,0 +1,19 @@
+{
+  "name": "agent-registry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4",
+  "dependencies": {
+    "@0xintuition/protocol": "1.0.0-alpha.2",
+    "@0xintuition/sdk": "1.0.0-alpha.2",
+    "tsx": "^4.20.3",
+    "viem": "^2.33.0"
+  }
+}
