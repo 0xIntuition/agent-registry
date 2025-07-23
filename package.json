@@ -13,6 +13,9 @@
   "dependencies": {
     "@0xintuition/protocol": "1.0.0-alpha.2",
     "@0xintuition/sdk": "1.0.0-alpha.2",
+    "add": "^2.0.6",
+    "graphql": "^16.11.0",
+    "graphql-request": "^7.2.0",
     "tsx": "^4.20.3",
     "viem": "^2.33.0"
   }

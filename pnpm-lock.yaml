@@ -14,6 +14,15 @@ importers:
       '@0xintuition/sdk':
         specifier: 1.0.0-alpha.2
         version: 1.0.0-alpha.2(react@19.1.0)(viem@2.33.0)
+      add:
+        specifier: ^2.0.6
+        version: 2.0.6
+      graphql:
+        specifier: ^16.11.0
+        version: 16.11.0
+      graphql-request:
+        specifier: ^7.2.0
+        version: 7.2.0(graphql@16.11.0)
       tsx:
         specifier: ^4.20.3
         version: 4.20.3
@@ -323,6 +332,9 @@ packages:
         optional: true
       zod:
         optional: true
+
+  add@2.0.6:
+    resolution: {integrity: sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==}
 
   ansi-styles@4.3.0:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
@@ -890,6 +902,8 @@ snapshots:
       tslib: 2.6.3
 
   abitype@1.0.8: {}
+
+  add@2.0.6: {}
 
   ansi-styles@4.3.0:
     dependencies:

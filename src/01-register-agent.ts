@@ -6,6 +6,7 @@ async function main() {
 
   await signal(subject, 'type', 'agent')
   await signal(subject, 'name', 'The Automator')
+  await signal(subject, 'description', 'Your ultimate ai assistant')
   await signal(subject, 'url', 'https://example.com/a2a')
   await signal(subject, 'capabilities', 'defi')
   await signal(subject, 'capabilities', 'web_search')

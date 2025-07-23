@@ -37,7 +37,7 @@ export const publicClient = createPublicClient({
 const adminAccount = privateKeyToAccount(
   '0x3c0afbd619ed4a8a11cfbd8c5794e08dc324b6809144a90c58bc0ff24219103b',
 )
-const account = privateKeyToAccount(
+export const account = privateKeyToAccount(
   '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
 )
 export const walletClient = createWalletClient({
