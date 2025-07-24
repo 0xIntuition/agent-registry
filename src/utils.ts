@@ -1,6 +1,7 @@
-import { keccak256, toHex } from 'viem'
-import { contract, config } from './setup'
+import { Address, keccak256, toHex } from 'viem'
+import { contract, config, graphqlClient } from './setup'
 import { createAtomFromString, createTripleStatement, depositTriple, redeemTriple } from '@0xintuition/sdk'
+import { gql } from 'graphql-request'
 
 export async function getOrCreateAtom(data: string) {
   const termId = await contract.read.atomsByHash([keccak256(toHex(data))])
@@ -96,4 +97,52 @@ export async function notRelevant(
     }
 
   }
+}
+
+export async function search(searchFields: Record<string, string>, addresses: Address[]) {
+  const response: any = await graphqlClient.request(gql`
+    query SearchPositions($addresses: _text, $search_fields: jsonb) {
+      positions: search_positions_on_subject(
+        args: {addresses: $addresses, search_fields: $search_fields}
+      ) {
+        term {
+          triple {
+            subject {
+              data
+            }
+            predicate {
+              data
+            }
+            object {
+              data
+            }
+          }
+        }
+      }
+    }
+    `, {
+    addresses: `{${addresses.map(a => `"${a}"`).join(',')}}`,
+    search_fields: searchFields
+  })
+
+  const result: Record<string, Record<string, string | string[]>> = {}
+
+  for (const position of response.positions) {
+    const triple = position.term.triple
+    const id = triple.subject.data
+    const predicate = triple.predicate.data
+    const object = triple.object.data
+    if (!result[id]) {
+      result[id] = {}
+    }
+    if (typeof result[id][predicate] == 'string') {
+      result[id][predicate] = [result[id][predicate], object]
+    } else if (Array.isArray(result[id][predicate])) {
+      result[id][predicate].push(object)
+    } else {
+      result[id][predicate] = object
+    }
+  }
+
+  return result
 }

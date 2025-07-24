@@ -2,9 +2,10 @@ import { notRelevant } from './utils'
 
 async function main() {
 
-  const subject = 'did:example:123'
+  const id = 'did:example:123'
 
-  await notRelevant(subject, 'capabilities', 'web_search')
+  await notRelevant(id, 'capabilities', 'web_search')
+  await notRelevant(id, 'name', 'Autie')
 
 }
 

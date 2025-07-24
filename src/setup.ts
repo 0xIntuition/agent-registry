@@ -11,9 +11,12 @@ import {
 import { baseSepolia } from 'viem/chains'
 import { privateKeyToAccount } from 'viem/accounts'
 import { EthMultiVaultAbi } from '@0xintuition/protocol'
+import { gql, GraphQLClient } from 'graphql-request'
 import {
   getEthMultiVaultAddressFromChainId
 } from '@0xintuition/sdk'
+
+export const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql')
 
 const local = defineChain({
   id: 1337,
