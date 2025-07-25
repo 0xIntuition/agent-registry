@@ -11,12 +11,11 @@ import {
 import { baseSepolia } from 'viem/chains'
 import { privateKeyToAccount } from 'viem/accounts'
 import { EthMultiVaultAbi } from '@0xintuition/protocol'
-import { gql, GraphQLClient } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request'
 import {
   getEthMultiVaultAddressFromChainId
 } from '@0xintuition/sdk'
 
-export const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql')
 
 const local = defineChain({
   id: 1337,
@@ -31,27 +30,27 @@ const local = defineChain({
   },
 })
 
+// const chain = local
+// const address = getAddress('0x63905907b7a082d2ab9fa7643adc925619259c47')
+// export const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql')
+
+const chain = baseSepolia
+const address = getEthMultiVaultAddressFromChainId(chain.id)
+export const graphqlClient = new GraphQLClient('https://prod.base-sepolia.intuition-api.com/v1/graphql')
+
 export const publicClient = createPublicClient({
-  chain: local,
-  // chain: baseSepolia,
-  transport: http(),
+  chain,
+  transport: http('https://base-sepolia.g.alchemy.com/v2/gJjddZIMVctgNU2HSQt940NiyT_KH8lX'),
 })
 
-const adminAccount = privateKeyToAccount(
-  '0x3c0afbd619ed4a8a11cfbd8c5794e08dc324b6809144a90c58bc0ff24219103b',
-)
 export const account = privateKeyToAccount(
-  '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
+  '0x6c25488133b8ca4ba754ea64886b1bfa4c4b05e7fea057c61f9951fe76f1d657',
 )
 export const walletClient = createWalletClient({
-  // chain: baseSepolia,
-  chain: local,
-  transport: http(),
+  chain,
+  transport: http('https://base-sepolia.g.alchemy.com/v2/gJjddZIMVctgNU2HSQt940NiyT_KH8lX'),
   account: account,
 })
-
-const address = getAddress('0x63905907b7a082d2ab9fa7643adc925619259c47')
-// const address =getEthMultiVaultAddressFromChainId(walletClient.chain.id) 
 
 export const config = {
   walletClient,
@@ -65,10 +64,15 @@ export const contract = getContract({
   address,
 })
 
+
+// This is needed only if running with local backend
+const adminAccount = privateKeyToAccount(
+  '0x3c0afbd619ed4a8a11cfbd8c5794e08dc324b6809144a90c58bc0ff24219103b',
+)
+
 export async function faucet() {
   const adminWalletClient = createWalletClient({
-    // chain: baseSepolia,
-    chain: local,
+    chain,
     transport: http(),
     account: account,
   })

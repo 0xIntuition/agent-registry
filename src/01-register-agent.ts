@@ -23,4 +23,5 @@ async function main() {
   await assign(id2, 'capabilities', 'yield_farming')
 }
 
-main().catch(console.error)
+main().catch(e => console.error(e.message))
+
