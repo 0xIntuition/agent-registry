@@ -57,7 +57,7 @@ export async function getOrCreateTriple(
   }
 }
 
-export async function signal(
+export async function assign(
   subject: string,
   predicate: string,
   object: string
@@ -70,7 +70,7 @@ export async function signal(
 }
 
 
-export async function notRelevant(
+export async function revoke(
   subject: string,
   predicate: string,
   object: string
@@ -99,7 +99,7 @@ export async function notRelevant(
   }
 }
 
-export async function search(searchFields: Record<string, string>, addresses: Address[]) {
+export async function search(searchFields: Array<Record<string, string>>, addresses: Address[]) {
   const response: any = await graphqlClient.request(gql`
     query SearchPositions($addresses: _text, $search_fields: jsonb) {
       positions: search_positions_on_subject(

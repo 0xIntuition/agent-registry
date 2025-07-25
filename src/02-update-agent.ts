@@ -1,11 +1,13 @@
-import { notRelevant } from './utils'
+import { revoke, assign } from './utils'
 
 async function main() {
 
   const id = 'did:example:123'
 
-  await notRelevant(id, 'capabilities', 'web_search')
-  await notRelevant(id, 'name', 'Autie')
+  await revoke(id, 'capabilities', 'web_search')
+
+  await revoke(id, 'name', 'The Automator')
+  await assign(id, 'name', 'The Ultimate Automator')
 
 }
 
