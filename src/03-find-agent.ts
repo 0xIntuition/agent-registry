@@ -5,7 +5,7 @@ async function main() {
 
   const result = await search([
     { type: 'agent' },
-    { capabilities: 'defi' },
+    // { capabilities: 'yield_farming' },
     // { capabilities: 'web_search' },
   ], [account.address])
 

@@ -15,6 +15,9 @@ import { GraphQLClient } from 'graphql-request'
 import {
   getEthMultiVaultAddressFromChainId
 } from '@0xintuition/sdk'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 
 const local = defineChain({
@@ -30,17 +33,19 @@ const local = defineChain({
   },
 })
 
-// const chain = local
-// const address = getAddress('0x63905907b7a082d2ab9fa7643adc925619259c47')
-// export const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql')
+const chain = local
+const address = getAddress('0x63905907b7a082d2ab9fa7643adc925619259c47')
+export const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql')
+const transport = http()
 
-const chain = baseSepolia
-const address = getEthMultiVaultAddressFromChainId(chain.id)
-export const graphqlClient = new GraphQLClient('https://prod.base-sepolia.intuition-api.com/v1/graphql')
+// const chain = baseSepolia
+// const address = getEthMultiVaultAddressFromChainId(chain.id)
+// export const graphqlClient = new GraphQLClient('https://prod.base-sepolia.intuition-api.com/v1/graphql')
+// const transport = http(process.env.RPC_URL)
 
 export const publicClient = createPublicClient({
   chain,
-  transport: http('https://base-sepolia.g.alchemy.com/v2/gJjddZIMVctgNU2HSQt940NiyT_KH8lX'),
+  transport,
 })
 
 export const account = privateKeyToAccount(
@@ -48,7 +53,7 @@ export const account = privateKeyToAccount(
 )
 export const walletClient = createWalletClient({
   chain,
-  transport: http('https://base-sepolia.g.alchemy.com/v2/gJjddZIMVctgNU2HSQt940NiyT_KH8lX'),
+  transport,
   account: account,
 })
 
@@ -79,7 +84,7 @@ export async function faucet() {
 
   await adminWalletClient.sendTransaction({
     account: adminAccount,
-    value: parseEther('1'),
+    value: parseEther('10'),
     to: account.address,
   })
 
